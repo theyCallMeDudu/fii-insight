@@ -36,7 +36,7 @@ The system currently:
 
 - validates ticker using regex + Zod
 - uses layered architecture (routes / controllers / services)
-- uses a mock FiiDataService
+- uses a mock FiiDataService with enriched data for popular tickers (HGLG11, MXRF11, KNRI11), including manager and asset count
 - integrates with OpenAI GPT API
 - reads OpenAI configuration from .env
 - validates AI responses using Zod
@@ -137,7 +137,7 @@ OPENAI_TEMPERATURE=0.3
 - Healthcheck endpoint implemented
 - Input validation using Zod
 - Controller for FII analysis created
-- Mock FiiDataService implemented
+- Mock FiiDataService implemented, now enriched with realistic data for some popular tickers (HGLG11, MXRF11, KNRI11)
 - OpenAI integration implemented
 - Structured output using json_schema
 - Retry logic implemented
@@ -150,7 +150,7 @@ OPENAI_TEMPERATURE=0.3
 
 ## Backend Improvements
 
-1. Improve FiiDataService with realistic data for popular tickers
+1. Expand FiiDataService with more realistic data for additional popular tickers and, in the future, replace mocks with real data sources (scraping/API)
 2. Add rate limiting to protect OpenAI credits
 3. Improve error handling for OpenAI failures
 4. Expand API documentation
@@ -174,4 +174,4 @@ OPENAI_TEMPERATURE=0.3
 
 # Immediate Next Task
 
-Improve src/services/fiiData.service.ts to provide more realistic data per ticker.
+Improve src/services/fiiData.service.ts to provide more realistic data per ticker. (First iteration completed for HGLG11, MXRF11, KNRI11.)

@@ -42,6 +42,8 @@ POST /api/analyze
 
 Receives a FII ticker and returns an AI-generated analysis.
 
+Internally, this endpoint uses a `FiiDataService` that currently provides enriched mock data (including manager and asset count) for some popular FIIs such as `HGLG11`, `MXRF11` and `KNRI11`. For other tickers, a generic fallback dataset is used, while the external request/response contract of this endpoint remains unchanged.
+
 ## Request Body
 
 {
