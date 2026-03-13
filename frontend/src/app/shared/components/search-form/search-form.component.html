@@ -1,0 +1,25 @@
+<form (ngSubmit)="onSubmit()" class="search-form">
+  <label for="ticker">Ticker do FII</label>
+  <input
+    id="ticker"
+    name="ticker"
+    type="text"
+    [(ngModel)]="ticker"
+    required
+    placeholder="Ex.: KNIP11"
+    maxlength="8"
+    autocomplete="off"
+  />
+  <button type="submit">Analisar</button>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="suggestions">
+    <span>Sugestões:</span>
+    <button type="button" (click)="onSuggestionClick('KNIP11')">KNIP11</button>
+    <button type="button" (click)="onSuggestionClick('MXRF11')">MXRF11</button>
+    <button type="button" (click)="onSuggestionClick('HGLG11')">HGLG11</button>
+    <button type="button" (click)="onSuggestionClick('VISC11')">VISC11</button>
+  </div>
+</form>
+

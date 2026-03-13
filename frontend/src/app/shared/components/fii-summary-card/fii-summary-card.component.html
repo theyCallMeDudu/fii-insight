@@ -1,0 +1,10 @@
+<ng-container *ngIf="fii">
+  <div class="card">
+    <h2>{{ fii.ticker }}</h2>
+    <p><strong>Tipo:</strong> {{ fii.type || 'N/A' }}</p>
+    <p><strong>Segmento:</strong> {{ fii.segment || 'N/A' }}</p>
+    <p><strong>Gestora:</strong> {{ fii.manager || 'N/A' }}</p>
+    <p><strong>Fonte:</strong> {{ fii.source }}</p>
+  </div>
+</ng-container>
+

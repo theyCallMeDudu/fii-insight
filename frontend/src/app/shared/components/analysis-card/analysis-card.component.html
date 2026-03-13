@@ -1,0 +1,40 @@
+<ng-container *ngIf="analysis">
+  <div class="card analysis-card">
+    <h2>Análise do FII {{ analysis.ticker }}</h2>
+
+    <section>
+      <h3>Explicação simples</h3>
+      <p>{{ analysis.explicacao_simples }}</p>
+    </section>
+
+    <section>
+      <h3>Como gera renda</h3>
+      <p>{{ analysis.como_gera_renda }}</p>
+    </section>
+
+    <section>
+      <h3>Pontos positivos</h3>
+      <ul>
+        <li *ngFor="let p of analysis.pontos_positivos">{{ p }}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Pontos de atenção</h3>
+      <ul>
+        <li *ngFor="let p of analysis.pontos_de_atencao">{{ p }}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Perfil indicado</h3>
+      <p>{{ analysis.perfil_indicado }}</p>
+    </section>
+
+    <section>
+      <h3>Nível de risco estimado</h3>
+      <p>{{ analysis.nivel_risco_estimado }}</p>
+    </section>
+  </div>
+</ng-container>
+

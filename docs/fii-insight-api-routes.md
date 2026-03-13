@@ -42,7 +42,11 @@ POST /api/analyze
 
 Receives a FII ticker and returns an AI-generated analysis.
 
-Internally, this endpoint uses a `FiiDataService` that currently provides enriched mock data (including manager and asset count) for some popular FIIs such as `HGLG11`, `MXRF11` and `KNRI11`. For other tickers, a generic fallback dataset is used, while the external request/response contract of this endpoint remains unchanged.
+Internally, this endpoint uses a `FiiDataService` that is backed by a data aggregation layer composed of multiple providers (mock, Okanebox, Fundamentus, BRAPI).  
+- For some popular FIIs such as `HGLG11`, `MXRF11`, `KNRI11`, `VISC11`, `XPML11`, `BCFF11` and `KNIP11`, the mock provider returns enriched and predictable data (including manager and asset count), ideal for testing the AI behaviour.  
+- For other tickers, the system attempts to combine the available data from the external providers in order of priority per field (type, segment, dividendYield, pvp, vacancy, manager, assetCount).  
+- If no provider returns useful information, a generic FII structure is used as fallback.  
+- The external request/response contract of this endpoint remains unchanged.
 
 ## Request Body
 
@@ -54,6 +58,10 @@ Internally, this endpoint uses a `FiiDataService` that currently provides enrich
 
 - ticker must match regex for Brazilian FIIs
 - ticker is required
+
+Regex used for ticker validation:
+
+`^[A-Z]{4}[0-9]{2}$`
 
 ---
 

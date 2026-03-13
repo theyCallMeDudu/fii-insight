@@ -50,63 +50,70 @@ export class AIAnalysisService {
     console.log("[AIAnalysisService] model:", MODEL);
     console.log("[AIAnalysisService] analyzing ticker:", fiiData.ticker);
 
-    const response = await this.client.chat.completions.create({
-      model: MODEL,
-      temperature: TEMPERATURE,
-      max_tokens: MAX_TOKENS,
-      messages: [
-        {
-          role: "system",
-          content:
-            "Você é um analista especializado em FIIs brasileiros e deve responder apenas com JSON válido, sem markdown e sem texto extra.",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      response_format: {
-        type: "json_schema",
-        json_schema: {
-          name: "fii_analysis",
-          strict: true,
-          schema: {
-            type: "object",
-            additionalProperties: false,
-            properties: {
-              explicacao_simples: {
-                type: "string",
+    let response;
+
+    try {
+      response = await this.client.chat.completions.create({
+        model: MODEL,
+        temperature: TEMPERATURE,
+        max_tokens: MAX_TOKENS,
+        messages: [
+          {
+            role: "system",
+            content:
+              "Você é um analista especializado em FIIs brasileiros e deve responder apenas com JSON válido, sem markdown e sem texto extra.",
+          },
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        response_format: {
+          type: "json_schema",
+          json_schema: {
+            name: "fii_analysis",
+            strict: true,
+            schema: {
+              type: "object",
+              additionalProperties: false,
+              properties: {
+                explicacao_simples: {
+                  type: "string",
+                },
+                como_gera_renda: {
+                  type: "string",
+                },
+                pontos_positivos: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                pontos_de_atencao: {
+                  type: "array",
+                  items: { type: "string" },
+                },
+                perfil_indicado: {
+                  type: "string",
+                },
+                nivel_risco_estimado: {
+                  type: "string",
+                },
               },
-              como_gera_renda: {
-                type: "string",
-              },
-              pontos_positivos: {
-                type: "array",
-                items: { type: "string" },
-              },
-              pontos_de_atencao: {
-                type: "array",
-                items: { type: "string" },
-              },
-              perfil_indicado: {
-                type: "string",
-              },
-              nivel_risco_estimado: {
-                type: "string",
-              },
+              required: [
+                "explicacao_simples",
+                "como_gera_renda",
+                "pontos_positivos",
+                "pontos_de_atencao",
+                "perfil_indicado",
+                "nivel_risco_estimado",
+              ],
             },
-            required: [
-              "explicacao_simples",
-              "como_gera_renda",
-              "pontos_positivos",
-              "pontos_de_atencao",
-              "perfil_indicado",
-              "nivel_risco_estimado",
-            ],
           },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.error("[AIAnalysisService] OpenAI API error:", error);
+      throw new Error("Falha ao chamar a OpenAI");
+    }
 
     const content = response.choices[0]?.message?.content;
 

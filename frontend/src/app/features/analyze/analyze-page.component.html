@@ -1,0 +1,18 @@
+<main class="analyze-page">
+  <a routerLink="/">← Voltar</a>
+
+  <ng-container *ngIf="loading">
+    <app-loading-state></app-loading-state>
+  </ng-container>
+
+  <ng-container *ngIf="error">
+    <app-error-state [message]="error"></app-error-state>
+  </ng-container>
+
+  <ng-container *ngIf="!loading && !error && analysis">
+    <!-- Quando o backend expuser os dados do FII junto da análise,
+         estes cards poderão usar um objeto FiiData real. -->
+    <app-analysis-card [analysis]="analysis"></app-analysis-card>
+  </ng-container>
+</main>
+

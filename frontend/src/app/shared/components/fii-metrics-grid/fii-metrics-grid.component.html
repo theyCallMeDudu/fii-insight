@@ -1,0 +1,21 @@
+<ng-container *ngIf="fii">
+  <div class="metrics-grid">
+    <div class="metric">
+      <span>Dividend Yield</span>
+      <strong>{{ fii.dividendYield || 'N/A' }}</strong>
+    </div>
+    <div class="metric">
+      <span>P/VP</span>
+      <strong>{{ fii.pvp || 'N/A' }}</strong>
+    </div>
+    <div class="metric">
+      <span>Vacância</span>
+      <strong>{{ fii.vacancy || 'N/A' }}</strong>
+    </div>
+    <div class="metric">
+      <span>Nº de ativos</span>
+      <strong>{{ fii.assetCount !== null ? fii.assetCount : 'N/A' }}</strong>
+    </div>
+  </div>
+</ng-container>
+
